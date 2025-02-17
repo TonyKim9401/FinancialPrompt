@@ -1,0 +1,38 @@
+.output-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  background: white;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  /* Ensure the container doesn't overflow beyond the footer */
+  max-height: 70%;
+  overflow: hidden;
+}
+
+.output-box {
+  width: 97%;
+  min-height: 80px;
+  max-height: 100%; /* Maximum height for the output box */
+  overflow: hidden; /* Prevent overflow beyond the container */
+}
+
+.output-textarea {
+  width: 100%;
+  background: #f0f0f0;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #333;
+  resize: none; /* Prevent manual resizing */
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+  overflow-y: auto; /* Allow vertical scroll when content exceeds height */
+  overflow-x: auto; /* Horizontal scrollbar for wide content */
+  max-height: 100%; /* Ensure the textarea does not exceed the container size */
+}
