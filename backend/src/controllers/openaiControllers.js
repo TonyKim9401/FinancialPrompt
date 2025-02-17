@@ -10,38 +10,40 @@ exports.getPromptResultSummary = async (req, res) => {
   try {
     const inputPromptContent = req.body.content;
 
-    const queryResult = await validateQuery(inputPromptContent);
+    const validateResult = await validateQuery(inputPromptContent);
+    const generalResult = await getGeneralResult(inputPromptContent);
+    validateResult.response = generalResult;
 
-    if (!queryResult.validation) {
+    if (!validateResult.validation) {
       console.log("Invalid query");
       const invalidateMessage =
         "FinChat's assignment has designed for financial related inquiries only. Please try again";
       return res.json({ answer: invalidateMessage });
     }
 
-    const { response, api_urls } = queryResult;
+    const { response, api_urls } = validateResult;
 
-    let fmpData = await fetchFMPData(api_urls);
+    const fmpData = await fetchFMPData(api_urls);
 
-    const finalResultAnswer = await getFinalResultAnswer(
+    const finalAnswer = await getFinalAnswer(
       inputPromptContent,
       response,
       fmpData
     );
 
-    res.json({ answer: finalResultAnswer });
+    res.json({ answer: finalAnswer });
   } catch (error) {
-    console.error("Error in getOpenAISummary:", error);
+    console.error("Error Get Prompt Result Summary:", error);
     if (!res.headersSent) {
       return res.status(500).json({ error: error.message });
     }
   }
 };
 
-// Query validation and required FMP API analysis
+// Validate Query and required FMP API analysis
 async function validateQuery(inputPromptContent) {
   try {
-    const basicValidationPrompt = `
+    const validationPromptContent = `
         You are a strict and consistent AI validator that determines whether a given user query is related to company information, financial metrics, earnings call transcripts, or company financial performance.
     
         ### Criteria for a valid query:
@@ -53,14 +55,13 @@ async function validateQuery(inputPromptContent) {
         1. If all conditions are met, return "validation": true
         2. If any condition is not met, return "validation": false
         3. If the question requires financial data, return relevant API URLs from the **Financial Modeling Prep API (FMP)** (https://site.financialmodelingprep.com/developer/docs)
-        4. If financial data is not required, return an AI-generated answer.
-        5. When you create "response" You are an AI assistant specializing in financial topics. 
-        Provide a concise but informative answer.
+        4. You are an AI assistant specializing in financial topics. 
+        Provide a concise but informative answer to the following question at the response part.
     
         ### Expected JSON Output Format:
         {
           "validation": true / false,
-          "response": general answer from ChatGPT,
+          "response": "AI-generated answer",
           "api_urls": ["API_URL_1", "API_URL_2", ...] (Only if validation is true and financial data is needed and 'api/v3' only)
         }
     
@@ -68,57 +69,50 @@ async function validateQuery(inputPromptContent) {
         #### ✅ Valid Queries:
         1. "Summarize Apple's latest earnings call."
            → validation: true
-           → response: ""
+           → response: "AI-generated answer",
            → api_urls: ["https://financialmodelingprep.com/api/v3/earning_call_transcript/AAPL"]
         
         2. "What did Tesla's CEO say about profits in the last earnings call?"
            → validation: true
-           → response: ""
+           → response: "AI-generated answer",
            → api_urls: ["https://financialmodelingprep.com/api/v3/earning_call_transcript/TSLA"]
         
         3. "What are Mark Zuckerberg’s comments on AI?"
            → validation: true
-           → response: ""
+           → response: "AI-generated answer",
     
         #### ❌ Invalid Queries:
         1. "What is the best stock to invest in?" → validation: false
         2. "Tell me about the history of Amazon." → validation: false
         3. "What are the most famous programming languages?" → validation: false
         
+        ### Your Response:
+        {
+          "validation": (true or false),
+          "response": (If validation is true, generate a brief AI-generated answer based on the question. Otherwise, return an empty string),
+          "api_urls": (If validation is true and financial data is needed, provide relevant API URLs. Otherwise, return an empty array [])
+        }
+    
+
         ### Now process this question:
         Question: "${inputPromptContent}"
     `;
-    const rawValidationResponse = await axios.post(
-      OPENAI_URL,
-      {
-        model: "gpt-4-turbo",
-        messages: [
-          {
-            role: "user",
-            content: basicValidationPrompt,
-          },
-        ],
-        max_tokens: 2048, // 1 ~ 4095
-        temperature: 0, // 0.0 ~ 2.0
-        top_p: 0, // 0 ~ 1.0
-        stop: null,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${OPENAI_API_KEY}`,
-        },
-      }
+
+    const response = await interactWithOpenAI(
+      "gpt-4-turbo",
+      validationPromptContent
     );
 
-    const parsedValidationResponse = JSON.parse(
-      rawValidationResponse.data.choices[0].message.content.trim()
-    );
+    return JSON.parse(response.data.choices[0].message.content.trim());
+  } catch (error) {
+    console.error("Error OpenAI Query Validation", error);
+  }
+}
 
-    console.log(parsedValidationResponse);
-
+// Get General Result from ChatGPT
+// Using gpt-3.5-turbo to reduce the cost *Cheaper than gpt-4-turbo
+async function getGeneralResult(inputPromptContent) {
+  try {
     const generalAnswerPrompt = `
       You are an AI assistant specializing in financial topics. 
       Provide a concise but informative answer to the following question:
@@ -126,39 +120,14 @@ async function validateQuery(inputPromptContent) {
       Question: "${inputPromptContent}"
     `;
 
-    const rawGeneralResponse = await axios.post(
-      OPENAI_URL,
-      {
-        model: "gpt-4-turbo",
-        messages: [
-          {
-            role: "user",
-            content: generalAnswerPrompt,
-          },
-        ],
-        max_tokens: 2048, // 1 ~ 4095
-        temperature: 0, // 0.1 ~ 2.0
-        top_p: 0, // 0 ~ 1.0
-        stop: null,
-        frequency_penalty: 0,
-        presence_penalty: 0,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${OPENAI_API_KEY}`,
-        },
-      }
+    const response = await interactWithOpenAI(
+      "gpt-3.5-turbo",
+      generalAnswerPrompt
     );
 
-    parsedValidationResponse.response =
-      rawGeneralResponse.data.choices[0].message.content.trim();
-
-    console.log("--------");
-    console.log(parsedValidationResponse.response);
-    return parsedValidationResponse;
+    return response.data.choices[0].message.content.trim();
   } catch (error) {
-    console.error("Error OpenAI Query Validation", error);
+    console.error("Error Get General Result", error);
   }
 }
 
@@ -187,7 +156,70 @@ async function fetchFMPData(apiUrls) {
       error: res.status === "rejected" ? res.reason.message : null,
     }));
   } catch (error) {
-    console.error("Error fetching FMP data:", error);
+    console.error("Error Fetching FMP Data:", error);
     return [];
+  }
+}
+
+// Get Final Answer from OpenAI
+async function getFinalAnswer(inputPromptContent, firstResponse, fmpData) {
+  try {
+    const combinedPromptContent = `
+    You are a financial AI assistant. Analyze the following question.
+    Give me the answer of the following questions using given firstResponse and fmpData
+
+    - firstResponse: "${firstResponse}"
+    - fmpData: "${JSON.stringify(fmpData)}"
+
+    Question: ${inputPromptContent}
+
+    Please answer with detail information. Not too short.
+    To improve readability by adding appropriate \n line breaks 
+    You don't need to mention there was firstResponse or fmpData to make an answer.
+
+    I know you are going to work very nicely. Thank you!
+    `;
+
+    const response = await interactWithOpenAI(
+      "gpt-4-turbo",
+      combinedPromptContent
+    );
+
+    console.log(response.data.choices[0].message.content.trim());
+
+    return response.data.choices[0].message.content.trim();
+  } catch (error) {
+    console.error("Error Get Final Answer from OpenAI", error);
+  }
+}
+
+async function interactWithOpenAI(AIModel, promptContent) {
+  try {
+    return await axios.post(
+      OPENAI_URL,
+      {
+        model: AIModel,
+        messages: [
+          {
+            role: "user",
+            content: promptContent,
+          },
+        ],
+        max_tokens: 2048, // 1 ~ 4095
+        temperature: 0, // 0.0 ~ 2.0
+        top_p: 0, // 0 ~ 1.0
+        stop: null,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+        },
+      }
+    );
+  } catch (error) {
+    console.error("Error Iteract With OpenAI", error);
   }
 }
