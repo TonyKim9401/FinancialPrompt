@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./InputPrompt.scss";
 
-function InputPrompt() {
+function InputPrompt({ setOutputData }) {
   const [inputPrompt, setInputPrompt] = useState("");
   const [charCount, setCharCount] = useState(inputPrompt.length);
-  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -19,6 +20,8 @@ function InputPrompt() {
   };
 
   const fetchData = async () => {
+    if (isLoading) return;
+    setIsLoading(true);
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}/openai/summarize`,
@@ -26,24 +29,36 @@ function InputPrompt() {
           content: `${inputPrompt}`,
         }
       );
-      setData(response.data);
-      console.log(data);
+      console.log(response.data.answer);
+      setOutputData(response.data.answer);
     } catch (error) {
       console.error("Error fetching financial data:", error);
+      setOutputData("Please try again later.");
     }
+    setIsLoading(false);
   };
 
   return (
-    <div>
-      <div>{charCount} / 4096 characters</div>
+    <div className="input-container">
+      <div className="bottom-bar">
+        <span className="char-count">{charCount} / 1300 characters</span>
+      </div>
       <textarea
+        className="input-box"
         value={inputPrompt}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        placeholder="Ask anything you want to know here! The character limit is 4096."
-        maxLength="4096"
+        placeholder="Ask anything you want to know here! The character limit is 1300."
+        maxLength="1301"
+        disabled={isLoading}
       />
-      <button onClick={fetchData}>Search</button>
+      <button
+        className={`send-button ${isLoading ? "loading-button" : ""}`}
+        onClick={fetchData}
+        disabled={isLoading}
+      >
+        {isLoading ? "Loading..." : "Send"}
+      </button>
     </div>
   );
 }
