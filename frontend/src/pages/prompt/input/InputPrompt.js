@@ -9,7 +9,13 @@ function InputPrompt({ setOutputData }) {
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      fetchData();
+      if (e.shiftKey) {
+        e.preventDefault();
+        setInputPrompt((content) => content + "\n");
+      } else {
+        e.preventDefault();
+        fetchData();
+      }
     }
   };
 
