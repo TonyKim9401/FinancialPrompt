@@ -2,25 +2,21 @@ import React, { useState } from "react";
 
 import InputPrompt from "./pages/prompt/input/InputPrompt";
 import OutputPrompt from "./pages/prompt/output/OutputPrompt";
-import FinancialData from "./pages/FinancialData";
+import Footer from "./components/Footer";
+
+import "./App.scss";
 
 function App() {
-  const [outputPrompt, setOutputPrompt] = useState("");
+  const [outputData, setOutputData] = useState("");
 
   return (
-    <div>
-      <div>
-        <FinancialData />
+    <div className="chat-container">
+      <h1>FinChat Assignment by Tony Kim</h1>
+      <div className="chat-box">
+        <InputPrompt setOutputData={setOutputData} />
+        <OutputPrompt outputPrompt={outputData} />
       </div>
-      <div>
-        <InputPrompt />
-      </div>
-      <div>
-        <OutputPrompt
-          outputPrompt={outputPrompt}
-          setOutputPrompt={setOutputPrompt}
-        />
-      </div>
+      <Footer />
     </div>
   );
 }
