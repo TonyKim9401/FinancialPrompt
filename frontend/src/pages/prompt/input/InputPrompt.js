@@ -36,10 +36,16 @@ function InputPrompt({ setOutputData }) {
         }
       );
       console.log(response.data.answer);
-      setOutputData(response.data.answer);
+      setOutputData({
+        question: inputPrompt,
+        answer: response.data.answer,
+      });
     } catch (error) {
       console.error("Error fetching financial data:", error);
-      setOutputData("Please try again later.");
+      setOutputData({
+        question: inputPrompt,
+        answer: "Please try again later.",
+      });
     }
     setIsLoading(false);
   };

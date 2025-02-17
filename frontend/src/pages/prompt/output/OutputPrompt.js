@@ -17,9 +17,12 @@ function OutputPrompt({ outputPrompt }) {
         <textarea
           ref={outputTextareaRef}
           className="output-textarea"
-          value={outputPrompt}
+          value={
+            outputPrompt
+              ? `Your Question: \n${outputPrompt.question}\n\nAI Answer: \n${outputPrompt.answer}`
+              : "The answer will appear here!"
+          }
           readOnly
-          placeholder="The answer will appear here!"
         />
       </div>
     </div>
