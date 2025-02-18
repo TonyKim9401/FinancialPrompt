@@ -24,13 +24,6 @@ helping users gain valuable insights into companies' financials and key manageme
 ## ⏲️ Development Period
 - Feb.13th.2025 ~ Feb.18th.2025
 
-## ⚙️ Development Environment
-
-- Test tool : JUnit5
-- Infra : Docker, AWS ECR, ECS, FARGATE
-- VCS : Git / GitHub
-- IDEA : VSCode
-
 ## 🚀 Tech Stack & Testing Tools
 ### Backend
 - Node.js:     Backend runtime environment
@@ -110,7 +103,7 @@ frontend/
 │── package-lock.json               # Lock file for dependency versions       
 ```
 
-### 📌 Environment Variables (.env)
+### ⚙️ Environment Variables (.env)
 This project uses `.env` to manage API keys and configuration.
 Before starting both backend & frontend, you need to create a `.env` file with the following format:
 
