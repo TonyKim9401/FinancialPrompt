@@ -4,7 +4,7 @@ const FMP_API_KEY = process.env.FMP_API_KEY;
 const FMP_URL = process.env.FMP_URL;
 
 // Link to FMP data
-exports.fetchFMPData = async (apiUrls) => {
+const fetchFMPData = async (apiUrls) => {
   try {
     if (apiUrls.length <= 0) return [];
 
@@ -32,3 +32,5 @@ exports.fetchFMPData = async (apiUrls) => {
     return [];
   }
 };
+
+module.exports = { fetchFMPData };
