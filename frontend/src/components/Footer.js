@@ -9,6 +9,7 @@ const Footer = () => {
         href="https://github.com/TonyKim9401"
         target="_blank"
         rel="noopener noreferrer"
+        title="github"
       >
         <FaGithub className="icon" />
       </a>
@@ -16,10 +17,11 @@ const Footer = () => {
         href="https://www.linkedin.com/in/ktony/"
         target="_blank"
         rel="noopener noreferrer"
+        title="linkedin"
       >
         <FaLinkedin className="icon" />
       </a>
-      <a href="mailto:ktony.tech@gmail.com">
+      <a href="mailto:ktony.tech@gmail.com" title="envelope">
         <FaEnvelope className="icon" />
       </a>
     </footer>
