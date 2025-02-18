@@ -7,6 +7,9 @@
 ####    `.end` setup required, run backend and frontend servers separately
 
 ## 📂 Proejct Introduction
+#### The application UI image
+<img src="https://github.com/user-attachments/assets/4a9c6ebe-8f3b-4604-86cf-887e5dfadaaa" width="50%" />
+
 This project offers a seamless and interactive chat experience that can answer various financial-related questions with real-time AI responses and data fetching, 
 helping users gain valuable insights into companies' financials and key management comments
 
@@ -210,4 +213,30 @@ start http://localhost:3000/contacts
 ```
 
 ## 📑 Project Review
+### Strengths:
+- The core requirements were met
+- The UI was kept simple and non-complex
+- Non-relevant financial or company-related queries were blocked upfront for faster response times
+- BDD was applied to ensure readability and consistency of test code
+- Different AI models were utilized based on the complexity of the questions to reduce costs when using the ChatGPT API
+- 
+### Highlights:
+- The previous experience of using ChatGPT API for personal projects was very helpful
+- First-time use of the React Icons library to componentize icons like GitHub, LinkedIn, and E-mail
+- Realized the importance of test code beyond just testing purposes, as it can better reflect the nature and objectives of the application
+- Gained more knowledge and experience with the ChatGPT API usage
+- 
+### Additional Areas for Improvement:
+- The project direction was initially unclear, which led to wasting over a day in indecision
+- Couldn’t implement CI/CD due to time constraints. It would have been ideal to at least run Lint checks and test code validation, and possibly Dockerize the project with AWS CD
+- Both React and Express experience were limited, leading to a lack of detail across the code
+- The backend and frontend lacked clear hierarchical structure; better modularization of features could have made future maintenance and modifications easier
+- Discovered a bit late that the answers from ChatGPT API can vary depending on the API settings
+- The response time is slow; if ChatGPT Functions had been used, the frequency of external API calls could have been reduced, improving performance
+- Implementing the streaming answer feature from ChatGPT could enhance the professionalism of the UI
+- There are many additional features I would like to add, such as user registration, recent search history, and data visualization
+- Due to limited experience with writing Read.me files, I referred to many external resources, but I wish it had been more user-friendly and intuitive for someone encountering the project for the first time
+
+### Final Review:
+- I found the topic to be interesting, and the requirements were clearly defined, making the goal very clear. However, I regret spending too much time overthinking the overall direction of the application while trying to structure and think through the more flexible aspects of the project. Once I clarified the direction, I was able to move forward with both the backend and frontend as planned. Although there were some challenges with utilizing ChatGPT, I was able to work around them and still achieve professional-level answers. However, I regret not implementing data visualizations such as graphs and reports, which would have been essential for a project like FinChat. As someone who typically works with Java, I greatly enjoyed the opportunity to gain more experience using React and Express for this assignment. I would like to extend my sincere gratitude to FinChat for providing me with this opportunity.
 
