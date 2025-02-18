@@ -44,7 +44,7 @@ function InputPrompt({ setOutputData, textareaRef }) {
       console.error("Error Interaction with OpenAI server:", error);
       setOutputData({
         question: inputPrompt,
-        answer: "Please try again later. OpenAI Server may have issues",
+        answer: "OpenAI Server may have issues. Please try again later.",
       });
     }
     setInputPrompt("");
