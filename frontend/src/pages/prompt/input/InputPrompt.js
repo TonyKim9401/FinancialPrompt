@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import "./InputPrompt.scss";
 
-function InputPrompt({ setOutputData }) {
+function InputPrompt({ setOutputData, textareaRef }) {
   const [inputPrompt, setInputPrompt] = useState("");
   const [charCount, setCharCount] = useState(inputPrompt.length);
   const [isLoading, setIsLoading] = useState(false);
@@ -41,13 +41,18 @@ function InputPrompt({ setOutputData }) {
         answer: response.data.answer,
       });
     } catch (error) {
-      console.error("Error fetching financial data:", error);
+      console.error("Error Interaction with OpenAI server:", error);
       setOutputData({
         question: inputPrompt,
-        answer: "Please try again later.",
+        answer: "Please try again later. OpenAI Server may have issues",
       });
     }
+    setInputPrompt("");
     setIsLoading(false);
+
+    if (textareaRef.current) {
+      textareaRef.current.focus();
+    }
   };
 
   return (
@@ -56,6 +61,7 @@ function InputPrompt({ setOutputData }) {
         <span className="char-count">{charCount} / 1300 characters</span>
       </div>
       <textarea
+        ref={textareaRef}
         className="input-box"
         value={inputPrompt}
         onChange={handleChange}
