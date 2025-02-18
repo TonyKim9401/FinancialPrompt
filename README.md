@@ -182,7 +182,7 @@ npm start
 ```bash
 npm test
 ```
-#### Open your web browser and go to 
+#### Open application on browsers
 `Mac environment`
 ```bash
 open http://localhost:3000/contacts
@@ -192,7 +192,22 @@ open http://localhost:3000/contacts
 start http://localhost:3000/contacts
 ```
 
-## 📌 Feature offered
+## 📌 API Endpoints
+
+#### POST `/api/v1/finchat/openai/summarize`
+- Description: Calls the OpenAI API to summarize user input
+- Request Format
+```bash
+{
+   "content": "What is Tesla's expected earnings next quarter?"
+}
+```
+- Response Example
+```bash
+{
+   "answer": "Based on the most recent data available from the financial modeling prep data (fmpData), Tesla's expected earnings for ..."
+}
+```
 
 ## 📑 Project Review
 
