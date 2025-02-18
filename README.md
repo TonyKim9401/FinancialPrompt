@@ -212,13 +212,13 @@ start http://localhost:3000/contacts
 - Non-relevant financial or company-related queries were blocked upfront for faster response times
 - BDD was applied to ensure readability and consistency of test code
 - Different AI models were utilized based on the complexity of the questions to reduce costs when using the ChatGPT API
-- 
+  
 ### Highlights:
 - The previous experience of using ChatGPT API for personal projects was very helpful
 - First-time use of the React Icons library to componentize icons like GitHub, LinkedIn, and E-mail
 - Realized the importance of test code beyond just testing purposes, as it can better reflect the nature and objectives of the application
 - Gained more knowledge and experience with the ChatGPT API usage
-- 
+  
 ### Additional Areas for Improvement:
 - The project direction was initially unclear, which led to wasting over a day in indecision
 - Couldn’t implement CI/CD due to time constraints. It would have been ideal to at least run Lint checks and test code validation, and possibly Dockerize the project with AWS CD
