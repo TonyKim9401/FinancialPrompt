@@ -1,7 +1,7 @@
 import { React, useEffect, useRef } from "react";
 import "./OutputPrompt.scss";
 
-function OutputPrompt({ outputPrompt }) {
+function OutputPrompt({ outputPrompt, textareaRef }) {
   const outputTextareaRef = useRef(null);
 
   useEffect(() => {
@@ -9,7 +9,11 @@ function OutputPrompt({ outputPrompt }) {
       outputTextareaRef.current.style.height = "auto";
       outputTextareaRef.current.style.height = `${outputTextareaRef.current.scrollHeight}px`;
     }
-  }, [outputPrompt]);
+
+    if (textareaRef && textareaRef.current) {
+      textareaRef.current.focus();
+    }
+  }, [outputPrompt, textareaRef]);
 
   return (
     <div className="output-container">
