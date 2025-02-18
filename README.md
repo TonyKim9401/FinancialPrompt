@@ -14,10 +14,10 @@ This project offers a seamless and interactive chat experience that can answer v
 helping users gain valuable insights into companies' financials and key management comments
 
 #### Requirements:
-1. Backend Integration
+- Backend Integration
    - Use the OpenAI API to generate summaries and responses
    - Use the FMP API to fetch financial data and metrics
-2. Frontend Interface
+- Frontend Interface
    - Build a basic UI chat interface (preferably with React/Next.js) that allows users to input queries
    - The UI should interact with the backend and display the AI-generated summaries and financial data responses
 
