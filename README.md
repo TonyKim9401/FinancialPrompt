@@ -1,3 +1,6 @@
+## License
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
 # FinChat Assignment by Tony Kim
 ### Structure:
 ####    Express.js(Backend) + React.js(Frontend)
