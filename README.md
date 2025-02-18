@@ -232,6 +232,7 @@ start http://localhost:3000/contacts
 - Implementing the streaming answer feature from ChatGPT could enhance the professionalism of the UI
 - There are many additional features I would like to add, such as user registration, recent search history, and data visualization
 - Due to limited experience with writing Read.me files, I referred to many external resources, but I wish it had been more user-friendly and intuitive for someone encountering the project for the first time
+- Merged everything directly into the master branch without branching by feature, which was a mistake in terms of version control.
 
 ### Final Review:
 - I found the topic to be interesting, and the requirements were clearly defined, making the goal very clear. However, I regret spending too much time overthinking the overall direction of the application while trying to structure and think through the more flexible aspects of the project. Once I clarified the direction, I was able to move forward with both the backend and frontend as planned. Although there were some challenges with utilizing ChatGPT, I was able to work around them and still achieve professional-level answers. However, I regret not implementing data visualizations such as graphs and reports, which would have been essential for a project like FinChat. As someone who typically works with Java, I greatly enjoyed the opportunity to gain more experience using React and Express for this assignment. I would like to extend my sincere gratitude to FinChat for providing me with this opportunity.
