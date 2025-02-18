@@ -1,6 +1,3 @@
-## License
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
-
 # FinChat Assignment by Tony Kim
 ### Structure:
 ####    Express.js(Backend) + React.js(Frontend)
@@ -8,6 +5,9 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 ####    Sends a user-input prompt to the backend, processes it via OpenAI and FMP APIs, and displays the summary
 ### Deployment Considerations: 
 ####    `.end` setup required, run backend and frontend servers separately
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
 ## 📂 Proejct Introduction
 #### The application UI image
@@ -163,6 +163,10 @@ curl -X POST http://localhost:5010/api/v1/finchat/openai/summarize \
      -H "Content-Type: application/json" \
      -d "{\"content\": \"Summarize Spotify's latest conference call.\"}"
 ```
+
+This repository includes a Postman collection for interacting with the FinChat API.
+The Postman file has been attached; please use it for backend testing.
+- see the [Postman Collection](./FinchatAssignment.postman_collection) file for details.
 
 ### Frontend
 #### Navigate to the project directory
