@@ -20,7 +20,7 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 #### The application UI image
 
-<img src="https://github.com/user-attachments/assets/4a9c6ebe-8f3b-4604-86cf-887e5dfadaaa" width="50%" />
+<img src="https://github.com/user-attachments/assets/8d56bd1f-7d03-42e5-a822-40bd504bdc6f" width="50%" />
 
 This project offers a seamless and interactive chat experience that can answer various financial-related questions with real-time AI responses and data fetching,
 helping users gain valuable insights into companies' financials and key management comments
