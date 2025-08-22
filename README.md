@@ -1,4 +1,4 @@
-# FinChat Assignment by Tony Kim
+# Financial AI Prompt
 ### Structure:
 ####    Express.js(Backend) + React.js(Frontend)
 ### Functionality: 
