@@ -203,7 +203,7 @@ curl -X POST http://localhost:5010/api/v1/finchat/openai/summarize \
 This repository includes a Postman collection for interacting with the FinChat API.
 The Postman file has been attached; please use it for backend testing.
 
-- see the [Postman Collection](./FinancialPrompt.postman_collection) file for details.
+- see the [Postman Collection](./FinancialPrompt.postman_collection.json) file for details.
 
 ### Frontend
 
