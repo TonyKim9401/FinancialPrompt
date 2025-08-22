@@ -88,7 +88,7 @@ describe("Test getPromptResultSummary functions", () => {
     expect(validateQuery).toHaveBeenCalledWith(req.body.content);
     expect(res.json).toHaveBeenCalledWith({
       answer:
-        "FinChat's assignment has designed for financial related inquiries only. Please try again",
+        "Financial Prompt has designed for financial related inquiries only. Please try again",
     });
   });
 
@@ -101,7 +101,7 @@ describe("Test getPromptResultSummary functions", () => {
     const res = { json: jest.fn(), status: jest.fn().mockReturnThis() };
 
     const errorMessage =
-      "FinChat's assignment has designed for financial related inquiries only. Please try again";
+      "Financial Prompt has designed for financial related inquiries only. Please try again";
 
     validateQuery.mockImplementation(() =>
       Promise.reject(new Error(errorMessage))

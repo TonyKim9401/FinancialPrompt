@@ -15,7 +15,7 @@ const getPromptResultSummary = async (req, res) => {
     if (!validateResult.validation) {
       console.log("Invalid query");
       const invalidateMessage =
-        "FinChat's assignment has designed for financial related inquiries only. Please try again";
+        "Financial Prompt has designed for financial related inquiries only. Please try again";
       return res.json({ answer: invalidateMessage });
     }
 

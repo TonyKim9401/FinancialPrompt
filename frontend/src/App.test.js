@@ -6,7 +6,7 @@ describe("App Component", () => {
   it("renders main title", () => {
     render(<App />);
     expect(
-      screen.getByText("FinChat Assignment by Tony Kim")
+      screen.getByText("Financial Prompt by Tony Kim")
     ).toBeInTheDocument();
   });
 });

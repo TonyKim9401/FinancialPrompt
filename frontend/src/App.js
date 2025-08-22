@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className="chat-container">
-      <h1>FinChat Assignment by Tony Kim</h1>
+      <h1>Financial Prompt by Tony Kim</h1>
       <div className="chat-box">
         <InputPrompt setOutputData={setOutputData} textareaRef={textareaRef} />
         <OutputPrompt outputPrompt={outputData} textareaRef={textareaRef} />
