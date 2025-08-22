@@ -1,5 +1,8 @@
 # Financial AI Prompt
 
+### Deployed URL:
+#### http://dinojump.online/ (using http for temporary)
+
 ### Structure:
 
 #### Express.js(Backend) + React.js(Frontend)
